@@ -12,7 +12,8 @@ import {
   polygon,
   sepolia,
 } from 'wagmi/chains';
-import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { getDefaultConfig, Locale, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { useRouter } from 'next/router';
 
 const config = getDefaultConfig({
   appName: 'RainbowKit App',
@@ -31,10 +32,11 @@ const config = getDefaultConfig({
 const client = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const { locale } = useRouter() as { locale: Locale };
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={client}>
-        <RainbowKitProvider>
+        <RainbowKitProvider locale={locale}>
           <Component {...pageProps} />
         </RainbowKitProvider>
       </QueryClientProvider>
